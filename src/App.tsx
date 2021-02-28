@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Helmet } from 'react-helmet';
+import { StylesProvider } from "@material-ui/styles";
+import { ThemeProvider } from "styled-components";
+import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
+
+import maTheme from "./theme";
+import { Routes } from "./routes/Routes";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Helmet
+        titleTemplate="%s | LML"
+        defaultTitle="LML"
+      />
+      <StylesProvider injectFirst>
+        <MuiThemeProvider theme={maTheme[0]}>
+          <ThemeProvider theme={maTheme[0]}>
+            <Routes />
+          </ThemeProvider>
+        </MuiThemeProvider>
+      </StylesProvider>
+    </React.Fragment>
   );
 }
 
