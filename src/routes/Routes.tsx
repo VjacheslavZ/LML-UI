@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, RouteComponentProps } from "rea
 import AuthLayout from "../layouts/Auth";
 import { RouteInfoType } from "../types/types";
 import { dashboardLayoutRoutes, authLayoutRoutes } from "./index";
+import { Page404 } from "../pages/auth/Page404";
 
 const childRoutes = (Layout: React.ElementType, routes: Array<RouteInfoType>) =>
   routes.map(({component: Component, children, path}, index: number) =>{
@@ -41,7 +42,7 @@ export const Routes = () => (
       <Route
         render={() => (
           <AuthLayout>
-            {/*<Page404 />*/}
+            <Page404 />
           </AuthLayout>
         )}
       />

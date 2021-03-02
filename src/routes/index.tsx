@@ -7,6 +7,7 @@ import {
 
 // Auth components
 import {SignIn} from "../pages/auth/SignIn";
+import {SignUp} from "../pages/auth/SignUp";
 
 // Pages components
 import {Blank} from "../pages/pages/Blank";
@@ -20,6 +21,11 @@ const authRoutes = {
       path: "/auth/sign-in",
       name: "Sign In",
       component: SignIn
+    },
+    {
+      path: "/auth/sign-up",
+      name: "Sign Up",
+      component: SignUp
     },
   ],
   component: null
