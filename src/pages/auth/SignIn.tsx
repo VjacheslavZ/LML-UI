@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Helmet } from 'react-helmet';
 import { Link } from "react-router-dom";
+import { observer } from 'mobx-react';
+
+import {useStores} from "../../hooks/useStores";
 
 import { MuiButtonSpacingType } from './../../types/types'
 
@@ -35,7 +38,22 @@ const BigAvatar = styled(Avatar)`
   margin: 0 auto ${props => props.theme.spacing(5)}px;
 `;
 
-export const SignIn = () => {
+export const SignIn: React.FC = observer((props) => {
+  const { userStore } = useStores();
+  const [inputValue, setInputValue] = useState<{email: string, password: string}>({email: '', password: ''})
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = e.target
+    setInputValue({
+      ...inputValue,
+      [name]: value
+    })
+  }
+
+  const handleSubmit = () => {
+    userStore.signin(inputValue.email, inputValue.password)
+  }
+
   return (
     <Wrapper>
       <Helmet title="Sign In" />
@@ -47,10 +65,16 @@ export const SignIn = () => {
       <Typography component="h2" variant="body1" align="center">
         Sign in to your account to continue
       </Typography>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormControl margin="normal" required fullWidth>
           <InputLabel htmlFor="email">Email Address</InputLabel>
-          <Input id="email" name="email" autoComplete="email" autoFocus />
+          <Input
+            id="email"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            onChange={handleChange}
+          />
         </FormControl>
         <FormControl margin="normal" required fullWidth>
           <InputLabel htmlFor="password">Password</InputLabel>
@@ -59,6 +83,7 @@ export const SignIn = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChange}
           />
         </FormControl>
         <FormControlLabel
@@ -66,12 +91,13 @@ export const SignIn = () => {
           label="Remember me"
         />
         <Button
-          component={Link}
+          // component={Link}
           to="/"
           fullWidth
           variant="contained"
           color="primary"
           mb={2}
+          onClick={handleSubmit}
         >
           Sign in
         </Button>
@@ -86,4 +112,4 @@ export const SignIn = () => {
       </form>
     </Wrapper>
   );
-}
+})
