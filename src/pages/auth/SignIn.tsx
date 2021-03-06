@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Helmet } from 'react-helmet';
 import { Link } from "react-router-dom";
-import { observer } from 'mobx-react';
-
-import {useStores} from "../../hooks/useStores";
-
-import { MuiButtonSpacingType } from './../../types/types'
-
+import { useHistory } from 'react-router';
 import {
   Avatar,
   Checkbox,
@@ -20,6 +15,10 @@ import {
   Typography
 } from "@material-ui/core";
 import { spacing } from "@material-ui/system";
+
+import { MuiButtonSpacingType } from './../../types/types'
+import { login } from "../../actions/auth";
+
 
 const Button = styled(MuiButton)<MuiButtonSpacingType>(spacing);
 
@@ -38,8 +37,8 @@ const BigAvatar = styled(Avatar)`
   margin: 0 auto ${props => props.theme.spacing(5)}px;
 `;
 
-export const SignIn: React.FC = observer((props) => {
-  const { userStore } = useStores();
+export const SignIn: React.FC = (props) => {
+  const history = useHistory();
   const [inputValue, setInputValue] = useState<{email: string, password: string}>({email: '', password: ''})
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,8 +49,13 @@ export const SignIn: React.FC = observer((props) => {
     })
   }
 
-  const handleSubmit = () => {
-    userStore.signin(inputValue.email, inputValue.password)
+  const handleSubmit = async () => {
+    const res = await login(inputValue.email, inputValue.password)
+
+    if (res) {
+      localStorage.setItem('accessToken', res.accessToken);
+      history.push('/')
+    }
   }
 
   return (
@@ -91,8 +95,6 @@ export const SignIn: React.FC = observer((props) => {
           label="Remember me"
         />
         <Button
-          // component={Link}
-          to="/"
           fullWidth
           variant="contained"
           color="primary"
@@ -112,4 +114,4 @@ export const SignIn: React.FC = observer((props) => {
       </form>
     </Wrapper>
   );
-})
+}

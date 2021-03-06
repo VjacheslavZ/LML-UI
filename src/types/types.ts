@@ -8,7 +8,7 @@ export type GlobalStyleProps = {
 }
 
 export interface MuiButtonSpacingType extends SpacingProps {
-    component: React.PropsWithoutRef<{}>
+    component?: React.PropsWithoutRef<{}>
     to?: string
 }
 export interface MuiChipSpacingType extends SpacingProps {

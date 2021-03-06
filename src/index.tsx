@@ -1,17 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
+import { applyMiddleware, compose, createStore } from 'redux';
+
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {StoreProvider} from "./contexts";
-import {RootStoreModel} from "./stores";
 
+import reducer from './store';
+
+
+const store = createStore(
+  reducer,
+  // @ts-ignore
+  window.__REDUX_DEVTOOLS_EXTENSION__
+    ? compose(
+    applyMiddleware(/*swClientMiddleware as any*/),
+    // @ts-ignore
+    (window.__REDUX_DEVTOOLS_EXTENSION__ &&
+      // @ts-ignore
+      window.__REDUX_DEVTOOLS_EXTENSION__()) ||
+    undefined,
+    )
+    : applyMiddleware(/*swClientMiddleware as any*/),
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <StoreProvider store={new RootStoreModel()}>
+    <Provider store={store}>
       <App />
-    </StoreProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

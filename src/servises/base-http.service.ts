@@ -28,10 +28,6 @@ export default class BaseHttpService {
       .catch(error => this._handleHttpError(error));
   }
 
-  // constructor(routerStore) {
-  //   this.routerStore = routerStore;
-  // }
-
   _handleHttpError(error: any) {
     const { statusCode } = error.response.data;
 
@@ -43,7 +39,8 @@ export default class BaseHttpService {
   }
 
   _handle401() {
-    // this.routerStore.push('/signin');
+    // @ts-ignore
+    this.routerStore.push('/signin');
   }
 
   _getCommonOptions() {
@@ -60,8 +57,9 @@ export default class BaseHttpService {
     return this._accessToken ? this._accessToken : this.loadToken();
   }
 
-  saveToken(accessToken: string) {
+  saveToken(accessToken: string, routerStore: any) {
     this._accessToken = accessToken;
+    routerStore.push('/pages/home');
     return localStorage.setItem('accessToken', accessToken);
   }
 

@@ -64,6 +64,7 @@ export const Blank = () => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <EmptyCard />
+          <span>Blank</span>
         </Grid>
       </Grid>
     </React.Fragment>

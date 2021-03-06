@@ -5,6 +5,8 @@ import AuthLayout from "../layouts/Auth";
 import { RouteInfoType } from "../types/types";
 import { dashboardLayoutRoutes, authLayoutRoutes } from "./index";
 import { Page404 } from "../pages/auth/Page404";
+import {PrivateRoute} from "../components/PrivateRoute";
+import {Home} from "../pages/pages/Home";
 
 const childRoutes = (Layout: React.ElementType, routes: Array<RouteInfoType>) =>
   routes.map(({component: Component, children, path}, index: number) =>{
@@ -39,6 +41,11 @@ export const Routes = () => (
   <Router>
     <Switch>
       {childRoutes(AuthLayout, authLayoutRoutes)}
+
+      <PrivateRoute>
+        <Route exact path="/" component={Home}/>
+      </PrivateRoute>
+
       <Route
         render={() => (
           <AuthLayout>
