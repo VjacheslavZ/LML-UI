@@ -9,7 +9,6 @@ const completedFetch = (url: string, options: object) => fetch(url, options)
   .catch(res => {
     if ((res.status === 401 || res.status === 409) && window.location.pathname !== '/login') {
       localStorage.removeItem('accessToken')
-      // window.location = '/login';
     }
 
     return (res.name === 'AbortError')
@@ -28,3 +27,15 @@ export const post = (url: string, body: object) => {
   };
   return completedFetch(url, options);
 };
+
+export const get = (url: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    },
+  };
+
+  return completedFetch(url, options);
+}

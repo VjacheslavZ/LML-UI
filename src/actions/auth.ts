@@ -1,12 +1,12 @@
-import {post} from "../servises/httpRequests";
+import { post } from "../servises/httpRequests";
+import { SIGN_IN } from "../constants";
 
-const BASE_URL = 'http://localhost:3000';
 
-export const login = (username: string, password: string) => post(`${BASE_URL}/auth/signin`, {
+export const login = (username: string, password: string) => post(SIGN_IN, {
   username,
   password,
 })
   .then(res => res.json());
 
-export const register = () => {
-};
+// TODO
+export const signup = () => {};

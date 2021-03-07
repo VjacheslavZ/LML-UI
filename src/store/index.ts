@@ -1,5 +1,11 @@
 import { combineReducers } from 'redux';
 
-export default combineReducers({
+import vocabulary, { VocabularyState } from "./vocabulary";
 
+export interface ReduxState {
+  vocabulary: VocabularyState
+}
+
+export default combineReducers({
+  vocabulary,
 })

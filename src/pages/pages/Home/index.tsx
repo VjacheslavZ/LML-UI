@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,6 +7,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getVocabulary } from "../../../actions/vocabulary";
+import { VocabularyActions, Vocabulary } from "../../../store/vocabulary";
 
 const useStyles = makeStyles({
   table: {
@@ -27,7 +31,20 @@ const rows = [
 ];
 
 export const Home = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+
+  useEffect(() => {
+    dispatch(VocabularyActions.fetchRequest());
+
+    getVocabulary()
+      .then((responce: Vocabulary[]) => {
+        dispatch(VocabularyActions.fetchSuccess({vocabulary: responce}));
+      })
+      .catch(() => {
+        dispatch(VocabularyActions.fetchFailed())
+      });
+  }, [])
 
   return (
     <TableContainer component={Paper}>
