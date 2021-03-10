@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import { getVocabulary } from "../../../actions/vocabulary";
 import { VocabularyActions, Vocabulary } from "../../../store/vocabulary";
-import { MyVocabulary } from "./components";
+import { MyVocabulary } from "./components/MyVocabulary";
+import { AddWord } from "./components/AddWord";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -12,8 +13,8 @@ export const Home = () => {
     dispatch(VocabularyActions.fetchRequest());
 
     getVocabulary()
-      .then((responce: Vocabulary[]) => {
-        dispatch(VocabularyActions.fetchSuccess({vocabulary: responce}));
+      .then((response: Vocabulary[]) => {
+        dispatch(VocabularyActions.fetchSuccess({vocabulary: response}));
       })
       .catch(() => {
         dispatch(VocabularyActions.fetchFailed())
@@ -22,6 +23,7 @@ export const Home = () => {
 
   return (
     <div>
+      <AddWord />
       <MyVocabulary />
     </div>
   )

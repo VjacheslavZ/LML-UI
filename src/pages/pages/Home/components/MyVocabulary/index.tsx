@@ -1,14 +1,17 @@
 import React from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import {ReduxState} from "../../../../store";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import TableBody from "@material-ui/core/TableBody";
-import TableContainer from "@material-ui/core/TableContainer";
-import {makeStyles} from "@material-ui/core/styles";
+import { useSelector } from 'react-redux';
+import {
+  Paper,
+  makeStyles,
+  TableContainer,
+  TableBody,
+  TableCell,
+  TableRow,
+  Table,
+  TableHead,
+} from "@material-ui/core";
+
+import { ReduxState } from "../../../../../store";
 
 const useStyles = makeStyles({
   table: {

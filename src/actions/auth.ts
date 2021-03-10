@@ -1,12 +1,19 @@
 import { post } from "../servises/httpRequests";
-import { SIGN_IN } from "../constants";
+import { SIGN_IN, SIGN_UP } from "../constants";
 
+export interface User {
+  username: string;
+  password: string;
+}
 
-export const login = (username: string, password: string) => post(SIGN_IN, {
+export const login = ({ username, password }: User) => post(SIGN_IN, {
   username,
   password,
 })
   .then(res => res.json());
 
-// TODO
-export const signup = () => {};
+export const signup = ({ username, password }: User) => post(SIGN_UP, {
+  username,
+  password,
+})
+  .then(res => res.json());

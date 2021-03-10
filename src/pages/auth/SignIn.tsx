@@ -17,7 +17,7 @@ import {
 import { spacing } from "@material-ui/system";
 
 import { MuiButtonSpacingType } from './../../types/types'
-import { login } from "../../actions/auth";
+import { login, User } from "../../actions/auth";
 
 
 const Button = styled(MuiButton)<MuiButtonSpacingType>(spacing);
@@ -39,7 +39,7 @@ const BigAvatar = styled(Avatar)`
 
 export const SignIn: React.FC = (props) => {
   const history = useHistory();
-  const [inputValue, setInputValue] = useState<{email: string, password: string}>({email: '', password: ''})
+  const [inputValue, setInputValue] = useState<User>({username: '', password: ''})
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target
@@ -50,7 +50,7 @@ export const SignIn: React.FC = (props) => {
   }
 
   const handleSubmit = async () => {
-    const res = await login(inputValue.email, inputValue.password)
+    const res = await login(inputValue)
 
     if (res) {
       localStorage.setItem('accessToken', res.accessToken);
@@ -74,8 +74,8 @@ export const SignIn: React.FC = (props) => {
           <InputLabel htmlFor="email">Email Address</InputLabel>
           <Input
             id="email"
-            name="email"
-            autoComplete="email"
+            name="username"
+            autoComplete="username"
             autoFocus
             onChange={handleChange}
           />
