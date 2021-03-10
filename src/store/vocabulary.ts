@@ -7,12 +7,14 @@ export enum VocabularyActionType {
   fetchRequest = 'vocabulary/FetchRequest',
   fetchSuccess = 'vocabulary/FetchSuccess',
   fetchFailed = 'vocabulary/FetchFailed',
+  addNewTranslation = 'vocabulary/AddNewTranslation',
 }
 
 export type VocabularyAction =
   | VocabularyFetchRequest
   | VocabularyFetchSuccess
   | VocabularyFetchFailed
+  | AddNewTranslation
 
 interface VocabularyFetchRequest extends ReduxAction {
   type: VocabularyActionType.fetchRequest;
@@ -25,6 +27,12 @@ interface VocabularyFetchSuccess extends ReduxAction {
 }
 interface VocabularyFetchFailed extends ReduxAction {
   type: VocabularyActionType.fetchFailed;
+}
+interface AddNewTranslation extends ReduxAction {
+  type: VocabularyActionType.addNewTranslation;
+  payload: {
+    translation: Vocabulary;
+  }
 }
 
 export const VocabularyActions = {
@@ -40,6 +48,12 @@ export const VocabularyActions = {
   fetchFailed: (): VocabularyAction => ({
     type: VocabularyActionType.fetchRequest
   }),
+  addTranslation: (translation: Vocabulary):VocabularyAction => ({
+    type: VocabularyActionType.addNewTranslation,
+    payload: {
+      translation
+    }
+  })
 }
 
 export interface  Vocabulary {
@@ -82,6 +96,9 @@ export default (state = initialState, action: VocabularyAction) => {
     case VocabularyActionType.fetchFailed: {
       state.loading = false
       break
+    }
+    case VocabularyActionType.addNewTranslation: {
+      state.data.vocabulary = [action.payload.translation, ...state.data.vocabulary]
     }
   }
   return state;

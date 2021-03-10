@@ -10,3 +10,8 @@ export const SIGN_UP = `${BASE_URL}/auth/signup`
 * vocabulary routes
 * */
 export const VOCABULARY = `${BASE_URL}/vocabulary`
+
+/*
+* translation routes
+* */
+export const TRANSLATION = `${BASE_URL}/translation`
