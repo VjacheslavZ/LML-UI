@@ -40,3 +40,29 @@ export const get = (url: string) => {
 
   return completedFetch(url, options);
 }
+
+export const patch = (url: string, body: object) => {
+  const options = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    },
+    body: JSON.stringify(body),
+  };
+
+  return completedFetch(url, options);
+}
+
+export const put = (url: string, body: object) => {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    },
+    body: JSON.stringify(body),
+  };
+
+  return completedFetch(url, options);
+}

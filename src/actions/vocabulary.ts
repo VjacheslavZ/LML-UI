@@ -1,6 +1,6 @@
 import { VOCABULARY } from "../constants";
-import { get, post } from "../servises/httpRequests";
-import { Vocabulary } from "../store/vocabulary";
+import { get, post, patch } from "../servises/httpRequests";
+import { Vocabulary, VocabularyStatus } from "../store/vocabulary";
 
 export const getVocabulary = (): Promise<Vocabulary[]> =>
   get(VOCABULARY)
@@ -8,4 +8,8 @@ export const getVocabulary = (): Promise<Vocabulary[]> =>
 
 export const vocabularyAdd = (translation_id: number): Promise<Vocabulary> =>
   post(`${VOCABULARY}/add`, { translation_id })
+    .then(res => res.json())
+
+export const vocabularyUpdateStatus = (vocab_id: string, status: VocabularyStatus): Promise<Vocabulary> =>
+  patch(`${VOCABULARY}/${vocab_id}/status`, {status})
     .then(res => res.json())
