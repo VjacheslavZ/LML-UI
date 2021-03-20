@@ -1,3 +1,4 @@
+import { filter } from 'lodash'
 export interface ReduxAction {
   type: string;
   payload?: any;
@@ -9,15 +10,27 @@ export enum VocabularyActionType {
   fetchFailed = 'vocabulary/FetchFailed',
   addNewTranslation = 'vocabulary/AddNewTranslation',
   patchUpdateProgressStatus = 'vocabulary/PatchUpdateProgressStatus',
+
+  deleteVocabularyRequest = 'vocabulary/DeleteVocabularyRequest',
+  deleteVocabularyRequestSuccess = 'vocabulary/DeleteVocabularyRequestSuccess',
+  deleteVocabularyRequestFailed = 'vocabulary/DeleteVocabularyRequestFailed',
 }
 
 export type VocabularyAction =
   | VocabularyFetchRequest
   | VocabularyFetchSuccess
   | VocabularyFetchFailed
+
   | AddNewTranslation
+
   | PatchUpdateProgressStatus
 
+  | DeleteVocabularyRequest
+  | DeleteVocabularyRequestSuccess
+  | DeleteVocabularyRequestFailed
+
+/* Actions interface start */
+// Vocabulary
 interface VocabularyFetchRequest extends ReduxAction {
   type: VocabularyActionType.fetchRequest;
 }
@@ -30,17 +43,36 @@ interface VocabularyFetchSuccess extends ReduxAction {
 interface VocabularyFetchFailed extends ReduxAction {
   type: VocabularyActionType.fetchFailed;
 }
+// Add translation
 interface AddNewTranslation extends ReduxAction {
   type: VocabularyActionType.addNewTranslation;
   payload: {
     translation: Vocabulary;
   }
 }
+// Update status
 interface PatchUpdateProgressStatus extends ReduxAction {
   type: VocabularyActionType.patchUpdateProgressStatus;
   payload: {
     translation: Vocabulary;
   }
+}
+// Delete word from vocab
+interface DeleteVocabularyRequest extends ReduxAction {
+  type: VocabularyActionType.deleteVocabularyRequest;
+}
+interface DeleteVocabularyRequestSuccess extends ReduxAction {
+  type: VocabularyActionType.deleteVocabularyRequestSuccess;
+  payload: IDelete
+}
+interface DeleteVocabularyRequestFailed extends ReduxAction {
+  type: VocabularyActionType.deleteVocabularyRequestFailed;
+}
+/* Actions interface end */
+
+export interface IDelete {
+  id: number;
+  status: string;
 }
 
 export const VocabularyActions = {
@@ -67,7 +99,17 @@ export const VocabularyActions = {
     payload: {
       translation
     }
-  })
+  }),
+  deleteVocabularyRequest: () => ({
+    type: VocabularyActionType.deleteVocabularyRequest
+  }),
+  deleteVocabularyRequestSuccess: (result: IDelete) => ({
+    type: VocabularyActionType.deleteVocabularyRequestSuccess,
+    payload: result
+  }),
+  deleteVocabularyRequestFailed: () => ({
+    type: VocabularyActionType.deleteVocabularyRequestFailed
+  }),
 }
 
 export enum VocabularyStatus {
@@ -126,6 +168,19 @@ export default (state = initialState, action: VocabularyAction) => {
       const vocabulary = [...state.data.vocabulary]
       vocabulary[index] = action.payload.translation
       state.data.vocabulary = vocabulary
+      break
+    }
+    case VocabularyActionType.deleteVocabularyRequest: {
+      state.loading = true
+      break
+    }
+    case VocabularyActionType.deleteVocabularyRequestSuccess: {
+      state.loading = false;
+      state.data.vocabulary = filter(state.data.vocabulary, ({ id }) => id !== action.payload.id)
+      break
+    }
+    case VocabularyActionType.deleteVocabularyRequestFailed: {
+      state.loading = false
       break
     }
     default:

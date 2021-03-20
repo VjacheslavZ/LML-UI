@@ -17,8 +17,11 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 
 import { ReduxState } from "../../../../../store";
-import {VocabularyActions, VocabularyStatus} from "../../../../../store/vocabulary";
-import { vocabularyUpdateStatus } from "../../../../../actions/vocabulary";
+import { VocabularyActions, VocabularyStatus, IDelete} from "../../../../../store/vocabulary";
+import {
+  vocabularyUpdateStatus,
+  deleteVocabulary,
+} from "../../../../../actions/vocabulary";
 
 const useStyles = makeStyles({
   table: {
@@ -37,7 +40,25 @@ export const MyVocabulary = () => {
   const vocabulary = useSelector((state: ReduxState) => state.vocabulary.data.vocabulary)
 
   const handleDelete = (e: React.MouseEvent) => {
-    console.log('delete')
+    e.stopPropagation()
+    const vocab_id = (e.currentTarget as HTMLSpanElement).getAttribute('data-id')
+
+    if (vocab_id) {
+      dispatch(
+        VocabularyActions.deleteVocabularyRequest()
+      )
+      deleteVocabulary(vocab_id)
+        .then((response: IDelete) => {
+          dispatch(
+            VocabularyActions.deleteVocabularyRequestSuccess(response)
+          )
+        })
+        .catch(() => {
+          dispatch(
+            VocabularyActions.deleteVocabularyRequestFailed()
+          )
+        })
+    }
   }
 
   const handleChangeStatus = (e: React.MouseEvent) => {
@@ -101,7 +122,7 @@ export const MyVocabulary = () => {
                 </span>
               </TableCell>
               <TableCell>
-                <DeleteIcon className={classes.hover} onClick={handleDelete}/>
+                <DeleteIcon data-id={id} className={classes.hover} onClick={handleDelete}/>
               </TableCell>
             </TableRow>
           ))}

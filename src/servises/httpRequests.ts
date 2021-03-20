@@ -66,3 +66,15 @@ export const put = (url: string, body: object) => {
 
   return completedFetch(url, options);
 }
+
+export const deleteRequest = (url: string) => {
+  const options = {
+    method: 'delete',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    },
+  };
+
+  return completedFetch(url, options);
+}
