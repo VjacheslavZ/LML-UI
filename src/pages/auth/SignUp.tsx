@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router';
 
 import { MuiButtonSpacingType } from './../../types/types'
-
+import { IUser } from '../../actions/auth'
 import {
   FormControl,
   Input,
@@ -28,9 +28,9 @@ const Wrapper = styled(Paper)`
 
 export const SignUp = () => {
   const history = useHistory()
-  const [signUpData, setSignUpData] = useState({
-    username: '',
+  const [signUpData, setSignUpData] = useState<IUser>({
     password: '',
+    email: '',
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,19 +62,14 @@ export const SignUp = () => {
       </Typography>
       <form>
         <FormControl margin="normal" required fullWidth>
-          <InputLabel htmlFor="name">Name</InputLabel>
-          <Input id="username" name="username" autoFocus onChange={handleChange}/>
+          <InputLabel htmlFor="email">Email Address</InputLabel>
+          <Input
+            id="email"
+            name="email"
+            autoComplete="email"
+            onChange={handleChange}
+          />
         </FormControl>
-
-        {/*<FormControl margin="normal" required fullWidth>*/}
-        {/*  <InputLabel htmlFor="company">Company</InputLabel>*/}
-        {/*  <Input id="company" name="company" />*/}
-        {/*</FormControl>*/}
-
-        {/*<FormControl margin="normal" required fullWidth>*/}
-        {/*  <InputLabel htmlFor="email">Email Address</InputLabel>*/}
-        {/*  <Input id="email" name="email" autoComplete="email" />*/}
-        {/*</FormControl>*/}
 
         <FormControl margin="normal" required fullWidth>
           <InputLabel htmlFor="password">Password</InputLabel>
