@@ -323,47 +323,46 @@ const variants: Array<VariantType> = [
 
 export default variants;
 
-
 export type VariantType = {
-  name: string
+  name: string;
   palette: {
-      primary: MainContrastTextType
-      secondary: MainContrastTextType
-  }
+    primary: MainContrastTextType;
+    secondary: MainContrastTextType;
+  };
   header: ColorBgType & {
-      search: {
-          color: string
-      }
-      indicator: {
-          background: string
-      }
-  }
+    search: {
+      color: string;
+    };
+    indicator: {
+      background: string;
+    };
+  };
   sidebar: ColorBgType & {
-      header: ColorBgType & {
-          brand: {
-              color: string
-          }
-      }
-      footer: ColorBgType & {
-          online: {
-              background: string
-          }
-      }
-      category: {
-          fontWeight: number
-      }
-      badge: ColorBgType
-  }
+    header: ColorBgType & {
+      brand: {
+        color: string;
+      };
+    };
+    footer: ColorBgType & {
+      online: {
+        background: string;
+      };
+    };
+    category: {
+      fontWeight: number;
+    };
+    badge: ColorBgType;
+  };
   body: {
-      background: string
-  }
-}
+    background: string;
+  };
+};
 
 type MainContrastTextType = {
-  main: string
-  contrastText: string
-}
+  main: string;
+  contrastText: string;
+};
 type ColorBgType = {
-  color: string
-  background: string
-}
+  color: string;
+  background: string;
+};

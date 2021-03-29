@@ -1,16 +1,13 @@
 import React from "react";
 
-import {
-  Users,
-  Layout,
-} from "react-feather";
+import { Users, Layout } from "react-feather";
 
 // Auth components
-import {SignIn} from "../pages/auth/SignIn";
-import {SignUp} from "../pages/auth/SignUp";
+import { SignIn } from "../pages/auth/SignIn";
+import { SignUp } from "../pages/auth/SignUp";
 
 // Pages components
-import {Blank} from "../pages/pages/Blank";
+import { Blank } from "../pages/pages/Blank";
 
 const authRoutes = {
   id: "Auth",
@@ -26,10 +23,10 @@ const authRoutes = {
       path: "/auth/sign-up",
       name: "Sign Up",
       component: SignUp
-    },
+    }
   ],
   component: null
-}
+};
 
 const pagesRoutes = {
   id: "Pages",
@@ -43,14 +40,10 @@ const pagesRoutes = {
     }
   ],
   component: null
-}
+};
 
 // Routes using the Dashboard layout
-export const dashboardLayoutRoutes = [
-  pagesRoutes
-]
+export const dashboardLayoutRoutes = [pagesRoutes];
 
 // Routes using the Auth layout
-export const authLayoutRoutes = [
-  authRoutes
-];
+export const authLayoutRoutes = [authRoutes];

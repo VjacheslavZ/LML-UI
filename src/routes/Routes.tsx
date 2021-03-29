@@ -10,7 +10,7 @@ import { Home } from "../pages/pages/Home";
 import { Profile } from "../pages/pages/Profile";
 
 const childRoutes = (Layout: React.ElementType, routes: Array<RouteInfoType>) =>
-  routes.map(({component: Component, children, path}, index: number) =>{
+  routes.map(({ component: Component, children, path }, index: number) => {
     return children ? (
       children.map((element, index: number) => (
         <Route
@@ -35,7 +35,7 @@ const childRoutes = (Layout: React.ElementType, routes: Array<RouteInfoType>) =>
           </Layout>
         )}
       />
-    ) : null
+    ) : null;
   });
 
 export const Routes = () => (
@@ -44,8 +44,8 @@ export const Routes = () => (
       {childRoutes(AuthLayout, authLayoutRoutes)}
 
       <PrivateRoute>
-        <Route exact path="/" component={Home}/>
-        <Route exact path="/profile" component={Profile}/>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/profile" component={Profile} />
       </PrivateRoute>
 
       <Route
@@ -57,4 +57,4 @@ export const Routes = () => (
       />
     </Switch>
   </Router>
-)
+);

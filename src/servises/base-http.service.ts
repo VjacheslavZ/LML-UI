@@ -1,30 +1,34 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default class BaseHttpService {
-  BASE_URL = 'http://localhost:3000';
-  _accessToken: string|null = null;
+  BASE_URL = "http://localhost:3000";
+  _accessToken: string | null = null;
 
   async get(endpoint: string, options = {}) {
     Object.assign(options, this._getCommonOptions());
-    return axios.get(`${this.BASE_URL}/${endpoint}`, options)
+    return axios
+      .get(`${this.BASE_URL}/${endpoint}`, options)
       .catch(error => this._handleHttpError(error));
   }
 
   async post(endpoint: string, data = {}, options = {}) {
     Object.assign(options, this._getCommonOptions());
-    return axios.post(`${this.BASE_URL}/${endpoint}`, data, options)
+    return axios
+      .post(`${this.BASE_URL}/${endpoint}`, data, options)
       .catch(error => this._handleHttpError(error));
   }
 
   async delete(endpoint: string, options = {}) {
     Object.assign(options, this._getCommonOptions());
-    return axios.delete(`${this.BASE_URL}/${endpoint}`, options)
+    return axios
+      .delete(`${this.BASE_URL}/${endpoint}`, options)
       .catch(error => this._handleHttpError(error));
   }
 
   async patch(endpoint: string, data = {}, options = {}) {
     Object.assign(options, this._getCommonOptions());
-    return axios.patch(`${this.BASE_URL}/${endpoint}`, data, options)
+    return axios
+      .patch(`${this.BASE_URL}/${endpoint}`, data, options)
       .catch(error => this._handleHttpError(error));
   }
 
@@ -40,7 +44,7 @@ export default class BaseHttpService {
 
   _handle401() {
     // @ts-ignore
-    this.routerStore.push('/signin');
+    this.routerStore.push("/signin");
   }
 
   _getCommonOptions() {
@@ -48,8 +52,8 @@ export default class BaseHttpService {
 
     return {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     };
   }
 
@@ -59,17 +63,17 @@ export default class BaseHttpService {
 
   saveToken(accessToken: string, routerStore: any) {
     this._accessToken = accessToken;
-    routerStore.push('/pages/home');
-    return localStorage.setItem('accessToken', accessToken);
+    routerStore.push("/pages/home");
+    return localStorage.setItem("accessToken", accessToken);
   }
 
   loadToken() {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     this._accessToken = token;
     return token;
   }
 
   removeToken() {
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem("accessToken");
   }
 }

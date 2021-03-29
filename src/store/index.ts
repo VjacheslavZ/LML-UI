@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
 import vocabulary, { VocabularyState } from "./vocabulary";
-import profile, { IProfileState } from "./profile"
+import profile, { IProfileState } from "./profile";
 
 export interface ReduxAction {
   type: string;
@@ -9,11 +9,11 @@ export interface ReduxAction {
 }
 
 export interface ReduxState {
-  vocabulary: VocabularyState,
-  profile: IProfileState
+  vocabulary: VocabularyState;
+  profile: IProfileState;
 }
 
 export default combineReducers({
   vocabulary,
-  profile,
-})
+  profile
+});

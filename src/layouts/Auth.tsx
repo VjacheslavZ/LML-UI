@@ -1,7 +1,8 @@
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { GlobalStyleProps } from './../types/types'
 import { CssBaseline } from "@material-ui/core";
+
+import { GlobalStyleProps } from "./../types/types";
 
 const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   html,
@@ -32,6 +33,6 @@ const Auth: React.FC = ({ children }) => {
       {children}
     </Root>
   );
-}
+};
 
 export default Auth;

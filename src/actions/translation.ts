@@ -8,5 +8,4 @@ export interface ITranslation {
 }
 
 export const getTranslations = (text: string): Promise<ITranslation> =>
-  post(TRANSLATION, { text })
-    .then(res => res.json())
+  post(TRANSLATION, { text }).then(res => res.json());

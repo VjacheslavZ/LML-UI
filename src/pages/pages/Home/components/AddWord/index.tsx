@@ -1,47 +1,47 @@
-import React, { useState }  from "react";
-import { List, ListItem, ListItemText, TextField, Button } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { List, ListItem, ListItemText, TextField, Button } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 
 import { getTranslations } from "../../../../../actions/translation";
 import { vocabularyAdd } from "../../../../../actions/vocabulary";
-import { ITranslation } from '../../../../../actions/translation'
+import { ITranslation } from "../../../../../actions/translation";
 import { VocabularyActions } from "../../../../../store/vocabulary";
 
 export const AddWord = () => {
-  const dispatch = useDispatch()
-  const [text, setText] = useState<string>('')
+  const dispatch = useDispatch();
+  const [text, setText] = useState<string>("");
   const [translation, setTranslation] = useState<ITranslation>({
     id: 0,
-    text: '',
-    translation: '',
-  })
+    text: "",
+    translation: ""
+  });
 
   const fetchTranslations = async () => {
     try {
-      const response = await getTranslations(text)
-      setTranslation(response)
+      const response = await getTranslations(text);
+      setTranslation(response);
     } catch (error) {}
-  }
+  };
   const fetchVocabularyAdd = async () => {
     try {
-      const response = await vocabularyAdd(translation.id)
+      const response = await vocabularyAdd(translation.id);
 
       if (response.id) {
-        dispatch(VocabularyActions.addTranslation(response))
+        dispatch(VocabularyActions.addTranslation(response));
         setTranslation({
           ...translation,
-          translation: '',
-          text: '',
-        })
+          translation: "",
+          text: ""
+        });
       }
     } catch (err) {}
-  }
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchTranslations()
-  }
+    fetchTranslations();
+  };
 
   const translationResult = `${translation.text} - ${translation.translation}`;
   return (
@@ -62,11 +62,11 @@ export const AddWord = () => {
 
       <List component="nav" aria-label="results">
         {translation.translation && (
-          <ListItem button id={(translation.id).toString()} onClick={fetchVocabularyAdd}>
+          <ListItem button id={translation.id.toString()} onClick={fetchVocabularyAdd}>
             <ListItemText primary={translationResult} />
           </ListItem>
         )}
       </List>
     </div>
-  )
-}
+  );
+};

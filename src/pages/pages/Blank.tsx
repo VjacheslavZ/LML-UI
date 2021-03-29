@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink as RouterNavLink, LinkProps } from "react-router-dom";
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 
 import {
   CardContent,
@@ -69,4 +69,4 @@ export const Blank = () => {
       </Grid>
     </React.Fragment>
   );
-}
+};

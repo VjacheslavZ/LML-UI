@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 
 import { Button as MuiButton, Typography } from "@material-ui/core";
 import { spacing } from "@material-ui/system";
 
-import { MuiButtonSpacingType } from './../../types/types'
+import { MuiButtonSpacingType } from "./../../types/types";
 
 const Button = styled(MuiButton)<MuiButtonSpacingType>(spacing);
 
@@ -35,15 +35,9 @@ export const Page404 = () => {
         The page you are looking for might have been removed.
       </Typography>
 
-      <Button
-        component={Link}
-        to="/"
-        variant="contained"
-        color="secondary"
-        mt={2}
-      >
+      <Button component={Link} to="/" variant="contained" color="secondary" mt={2}>
         Return to website
       </Button>
     </Wrapper>
   );
-}
+};

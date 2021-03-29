@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { useHistory } from 'react-router';
+import { useHistory } from "react-router";
 import {
   Avatar,
   Checkbox,
@@ -16,9 +16,8 @@ import {
 } from "@material-ui/core";
 import { spacing } from "@material-ui/system";
 
-import { MuiButtonSpacingType } from '../../types/types'
+import { MuiButtonSpacingType } from "../../types/types";
 import { login, IUser } from "../../actions/auth";
-
 
 const Button = styled(MuiButton)<MuiButtonSpacingType>(spacing);
 
@@ -37,26 +36,26 @@ const BigAvatar = styled(Avatar)`
   margin: 0 auto ${props => props.theme.spacing(5)}px;
 `;
 
-export const SignIn: React.FC = (props) => {
+export const SignIn: React.FC = props => {
   const history = useHistory();
-  const [inputValue, setInputValue] = useState<IUser>({ password: '', email: ''})
+  const [inputValue, setInputValue] = useState<IUser>({ password: "", email: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target
+    const { name, value } = e.target;
     setInputValue({
       ...inputValue,
       [name]: value
-    })
-  }
+    });
+  };
 
   const handleSubmit = async () => {
-    const res = await login(inputValue)
+    const res = await login(inputValue);
 
     if (res) {
-      localStorage.setItem('accessToken', res.accessToken);
-      history.push('/')
+      localStorage.setItem("accessToken", res.accessToken);
+      history.push("/");
     }
-  }
+  };
 
   return (
     <Wrapper>
@@ -72,13 +71,7 @@ export const SignIn: React.FC = (props) => {
       <form onSubmit={handleSubmit}>
         <FormControl margin="normal" required fullWidth>
           <InputLabel htmlFor="email">Email Address</InputLabel>
-          <Input
-            id="email"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={handleChange}
-          />
+          <Input id="email" name="email" autoComplete="email" autoFocus onChange={handleChange} />
         </FormControl>
         <FormControl margin="normal" required fullWidth>
           <InputLabel htmlFor="password">Password</InputLabel>
@@ -94,24 +87,13 @@ export const SignIn: React.FC = (props) => {
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
         />
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          mb={2}
-          onClick={handleSubmit}
-        >
+        <Button fullWidth variant="contained" color="primary" mb={2} onClick={handleSubmit}>
           Sign in
         </Button>
-        <Button
-          component={Link}
-          to="/auth/reset-password"
-          fullWidth
-          color="primary"
-        >
+        <Button component={Link} to="/auth/reset-password" fullWidth color="primary">
           Forgot password
         </Button>
       </form>
     </Wrapper>
   );
-}
+};

@@ -1,17 +1,12 @@
-import { ReduxAction } from './index'
-// import {VocabularyAction, VocabularyData, VocabularyState} from "./vocabulary";
-// import {VocabularyAction, VocabularyActionType, VocabularyData} from "./vocabulary";
+import { ReduxAction } from "./index";
 
 export enum ProfileActionType {
-  fetchRequest = 'profile/FetchRequest',
-  fetchSuccess = 'profile/FetchSuccess',
-  fetchFailed = 'profile/FetchFailed',
+  fetchRequest = "profile/FetchRequest",
+  fetchSuccess = "profile/FetchSuccess",
+  fetchFailed = "profile/FetchFailed"
 }
 
-export type ProfileAction =
-  | ProfileFetchRequest
-  | ProfileFetchSuccess
-  | ProfileFetchFailed
+export type ProfileAction = ProfileFetchRequest | ProfileFetchSuccess | ProfileFetchFailed;
 
 /* Actions interface start */
 // Profile
@@ -20,7 +15,7 @@ interface ProfileFetchRequest extends ReduxAction {
 }
 interface ProfileFetchSuccess extends ReduxAction {
   type: ProfileActionType.fetchSuccess;
-  payload: IProfile
+  payload: IProfile;
 }
 interface ProfileFetchFailed extends ReduxAction {
   type: ProfileActionType.fetchFailed;
@@ -32,7 +27,7 @@ export interface IProfile {
 }
 
 export interface IProfileData {
-  profile: IProfile
+  profile: IProfile;
 }
 
 export const VocabularyActions = {
@@ -45,8 +40,8 @@ export const VocabularyActions = {
   }),
   fetchFailed: (): ProfileAction => ({
     type: ProfileActionType.fetchRequest
-  }),
-}
+  })
+};
 
 export interface IProfileState {
   data: IProfileData;
@@ -56,32 +51,32 @@ export interface IProfileState {
 const initialState: IProfileState = {
   data: {
     profile: {
-      username: '',
+      username: ""
     }
   },
-  loading: false,
-}
+  loading: false
+};
 
 const reducer = (state = initialState, action: ProfileAction) => {
   switch (action.type) {
     case ProfileActionType.fetchRequest: {
-      state.loading = true
-      break
+      state.loading = true;
+      break;
     }
     case ProfileActionType.fetchSuccess: {
-      state.loading = false
-      console.log('action.payload', action.payload)
-      state.data.profile = action.payload
-      break
+      state.loading = false;
+      console.log("action.payload", action.payload);
+      state.data.profile = action.payload;
+      break;
     }
     case ProfileActionType.fetchFailed: {
-      state.loading = false
-      break
+      state.loading = false;
+      break;
     }
     default:
-      return state
+      return state;
   }
-  return state
-}
+  return state;
+};
 
-export default reducer
+export default reducer;

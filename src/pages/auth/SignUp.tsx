@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Helmet } from 'react-helmet';
-import { useHistory } from 'react-router';
-
-import { MuiButtonSpacingType } from './../../types/types'
-import { IUser } from '../../actions/auth'
+import { Helmet } from "react-helmet";
+import { useHistory } from "react-router";
 import {
   FormControl,
   Input,
@@ -14,6 +11,10 @@ import {
   Typography
 } from "@material-ui/core";
 import { spacing } from "@material-ui/system";
+
+import { MuiButtonSpacingType } from "./../../types/types";
+import { IUser } from "../../actions/auth";
+
 import { signup } from "../../actions/auth";
 
 const Button = styled(MuiButton)<MuiButtonSpacingType>(spacing);
@@ -27,29 +28,29 @@ const Wrapper = styled(Paper)`
 `;
 
 export const SignUp = () => {
-  const history = useHistory()
+  const history = useHistory();
   const [signUpData, setSignUpData] = useState<IUser>({
-    password: '',
-    email: '',
-  })
+    password: "",
+    email: ""
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setSignUpData({
       ...signUpData,
-      [name]: value,
-    })
+      [name]: value
+    });
   };
 
   const handleSubmit = () => {
     signup(signUpData)
       .then(() => {
-        history.push('/auth/sign-in')
+        history.push("/auth/sign-in");
       })
-      .catch((error) => {
-        console.error(error)
-      })
-  }
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   return (
     <Wrapper>
@@ -63,12 +64,7 @@ export const SignUp = () => {
       <form>
         <FormControl margin="normal" required fullWidth>
           <InputLabel htmlFor="email">Email Address</InputLabel>
-          <Input
-            id="email"
-            name="email"
-            autoComplete="email"
-            onChange={handleChange}
-          />
+          <Input id="email" name="email" autoComplete="email" onChange={handleChange} />
         </FormControl>
 
         <FormControl margin="normal" required fullWidth>
@@ -81,16 +77,10 @@ export const SignUp = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          mt={2}
-          onClick={handleSubmit}
-        >
+        <Button fullWidth variant="contained" color="primary" mt={2} onClick={handleSubmit}>
           Sign up
         </Button>
       </form>
     </Wrapper>
   );
-}
+};

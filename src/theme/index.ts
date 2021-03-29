@@ -12,12 +12,12 @@ const theme = (variant: VariantType) => {
   return createMuiTheme(
     {
       spacing: 4,
-      breakpoints: breakpoints,
-      overrides: overrides,
-      props: props,
-      typography: typography,
-      shadows: shadows,
-      palette: variant.palette,
+      breakpoints,
+      overrides,
+      props,
+      typography,
+      shadows,
+      palette: variant.palette
     },
     {
       name: variant.name,
