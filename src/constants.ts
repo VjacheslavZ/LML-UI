@@ -15,3 +15,8 @@ export const VOCABULARY = `${BASE_URL}/vocabulary`
 * translation routes
 * */
 export const TRANSLATION = `${BASE_URL}/translation`
+
+/*
+* profile routes
+* */
+export const PROFILE_URL = `${BASE_URL}/profile`

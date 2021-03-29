@@ -1,8 +1,5 @@
 import { filter } from 'lodash'
-export interface ReduxAction {
-  type: string;
-  payload?: any;
-}
+import { ReduxAction } from './index'
 
 export enum VocabularyActionType {
   fetchRequest = 'vocabulary/FetchRequest',
@@ -144,7 +141,7 @@ const initialState: VocabularyState = {
   loading: false,
 }
 
-export default (state = initialState, action: VocabularyAction) => {
+const reducer = (state = initialState, action: VocabularyAction) => {
   switch (action.type) {
     case VocabularyActionType.fetchRequest: {
       state.loading = true
@@ -188,3 +185,4 @@ export default (state = initialState, action: VocabularyAction) => {
   }
   return state
 }
+export default reducer
